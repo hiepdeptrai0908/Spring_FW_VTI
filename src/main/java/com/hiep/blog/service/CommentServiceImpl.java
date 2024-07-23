@@ -4,39 +4,37 @@ import com.hiep.blog.dto.CommentDto;
 import com.hiep.blog.entity.Comment;
 import com.hiep.blog.form.CommentCreateForm;
 import com.hiep.blog.form.CommentUpdateForm;
-import com.hiep.blog.mapper.CommentMapper;
 import com.hiep.blog.repository.CommentRepository;
 import com.hiep.blog.repository.PostRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService{
     private CommentRepository commentRepository;
     private PostRepository postRepository;
+    private ModelMapper modelMapper;
 
     @Override
     public Page<CommentDto> findAll(Pageable pageable) {
-        return commentRepository.findAll(pageable).map(CommentMapper::map);
+        return commentRepository.findAll(pageable).map(comment -> modelMapper
+                .map(comment, CommentDto.class));
     }
 
     @Override
     public Page<CommentDto> findByPostId(Long postId, Pageable pageable) {
-        return commentRepository.findByPostId(postId, pageable).map(CommentMapper::map);
+        return commentRepository.findByPostId(postId, pageable).map(comment -> modelMapper.map(comment, CommentDto.class));
     }
 
     @Override
     public CommentDto findById(Long id) {
         return commentRepository.findById(id)
-                .map(CommentMapper::map)
+                .map(comment -> modelMapper.map(comment, CommentDto.class))
                 .orElse(null);
     }
 
@@ -47,10 +45,10 @@ public class CommentServiceImpl implements CommentService{
             return null;
         }
         var post = optional.get();
-        var comment = CommentMapper.map(form);
+        var comment = modelMapper.map(form, Comment.class);
         comment.setPost(post);
         var savedComment = commentRepository.save(comment);
-        return CommentMapper.map(savedComment);
+        return modelMapper.map(savedComment, CommentDto.class);
     }
 
     @Override
@@ -60,9 +58,9 @@ public class CommentServiceImpl implements CommentService{
             return null;
         }
         var comment = optional.get();
-        CommentMapper.map(comment, form);
+        modelMapper.map(comment, form);
         var updatedComment = commentRepository.save(comment);
-        return CommentMapper.map(updatedComment);
+        return modelMapper.map(updatedComment, CommentDto.class);
     }
 
     @Override

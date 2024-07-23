@@ -1,9 +1,11 @@
 package com.hiep.blog.entity;
 
+import com.hiep.blog.generator.CommentIdGenerator;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,8 +17,12 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @Column(name = "id", length = 50)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(
+            name = "generator-comment-id-custom",
+            type = CommentIdGenerator.class
+    )
+    @GeneratedValue(generator = "generator-comment-id-custom")
+    private String id;
 
     @Column(name = "name", length = 75, nullable = false)
     private String name;

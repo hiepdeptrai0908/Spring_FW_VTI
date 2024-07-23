@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface CommentRepository extends JpaRepository<Comment, String> {
 
     // 1. Method name
 
@@ -42,6 +42,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     // SQL: Theo bảng database, Native Query
     // Lấy comment có id lớn hơn ?
-    @Query(value = "SELECT * FROM comment WHERE id > ?1", nativeQuery = true)
-    Page<Comment> findByIdGreaterThan(Long id, Pageable pageable);
+//    @Query(value = "SELECT * FROM comment WHERE id > ?1", nativeQuery = true)
+//    Page<Comment> findByIdGreaterThan(String id, Pageable pageable);
 }

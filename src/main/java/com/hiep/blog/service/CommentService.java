@@ -11,9 +11,9 @@ import java.util.List;
 public interface CommentService {
     Page<CommentDto> findAll(Pageable pageable);
     Page<CommentDto> findByPostId(Long postId, Pageable pageable);
-    CommentDto findById(Long id);
+    CommentDto findById(String id);
     CommentDto create(Long postId, CommentCreateForm form);
-    CommentDto update(Long id, CommentUpdateForm form);
-    void delete(Long id);
+    CommentDto update(String id, CommentUpdateForm form);
+    void delete(String id);
     void deleteByEmail(String email);
 }

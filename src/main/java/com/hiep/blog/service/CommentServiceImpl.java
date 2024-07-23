@@ -1,7 +1,6 @@
 package com.hiep.blog.service;
 
 import com.hiep.blog.dto.CommentDto;
-import com.hiep.blog.entity.Comment;
 import com.hiep.blog.form.CommentCreateForm;
 import com.hiep.blog.form.CommentUpdateForm;
 import com.hiep.blog.mapper.CommentMapper;
@@ -11,11 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -34,7 +28,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public CommentDto findById(Long id) {
+    public CommentDto findById(String id) {
         return commentRepository.findById(id)
                 .map(CommentMapper::map)
                 .orElse(null);
@@ -54,7 +48,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public CommentDto update(Long id, CommentUpdateForm form) {
+    public CommentDto update(String id, CommentUpdateForm form) {
         var optional = commentRepository.findById(id);
         if (optional.isEmpty()) {
             return null;
@@ -66,7 +60,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         commentRepository.deleteById(id);
     }
 

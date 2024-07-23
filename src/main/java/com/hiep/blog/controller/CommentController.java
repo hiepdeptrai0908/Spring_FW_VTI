@@ -26,7 +26,7 @@ public class CommentController {
     }
 
     @GetMapping("/api/v1/comments/{id}")
-    public CommentDto findById(@PathVariable("id") Long id) {
+    public CommentDto findById(@PathVariable("id") String id) {
         return commentService.findById(id);
     }
 
@@ -36,12 +36,12 @@ public class CommentController {
     }
 
     @PutMapping("/api/v1/comments/{id}")
-    public CommentDto update(@PathVariable("id") Long id, @RequestBody CommentUpdateForm form) {
+    public CommentDto update(@PathVariable("id") String id, @RequestBody CommentUpdateForm form) {
         return commentService.update(id, form);
     }
 
     @DeleteMapping("/api/v1/comments/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") String id) {
         commentService.delete(id);
     }
 

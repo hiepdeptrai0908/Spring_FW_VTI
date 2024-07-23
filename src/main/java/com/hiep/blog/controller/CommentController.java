@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class CommentController {
         return commentService.findAll(pageable);
     }
     @GetMapping("/api/v1/comments/posts/{postId}")
-    public Page<CommentDto> findByPostId(@PathVariable("postId") Long postId, Pageable pageable) {
+    public Page<CommentDto> findByPostId(@PathVariable("postId") UUID postId, Pageable pageable) {
         return commentService.findByPostId(postId, pageable);
     }
 
@@ -31,7 +32,7 @@ public class CommentController {
     }
 
     @PostMapping("/api/v1/posts/{postId}/comments")
-    public CommentDto create(@PathVariable("postId") Long postId, @RequestBody CommentCreateForm form) {
+    public CommentDto create(@PathVariable("postId") UUID postId, @RequestBody CommentCreateForm form) {
         return commentService.create(postId, form);
     }
 

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -29,7 +30,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Page<CommentDto> findByPostId(Long postId, Pageable pageable) {
+    public Page<CommentDto> findByPostId(UUID postId, Pageable pageable) {
         return commentRepository.findByPostId(postId, pageable).map(CommentMapper::map);
     }
 
@@ -41,7 +42,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public CommentDto create(Long postId, CommentCreateForm form) {
+    public CommentDto create(UUID postId, CommentCreateForm form) {
         var optional = postRepository.findById(postId);
         if (optional.isEmpty()) {
             return null;

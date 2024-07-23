@@ -4,10 +4,12 @@ import com.hiep.blog.entity.Post;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class PostDto {
-    private long id;
+    private UUID id;
 
     private String title;
 

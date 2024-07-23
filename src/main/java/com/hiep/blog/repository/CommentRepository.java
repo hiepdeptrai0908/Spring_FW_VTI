@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
@@ -28,7 +29,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     // VD: Lấy ra tất cả comment theo name hoặc email người dùng nhập vào
     List<Comment> findByNameOrEmail(String name, String email);
     // VD: Lấy ra tất cả comment bằng post id và phân trang
-    Page<Comment> findByPostId(Long postId, Pageable pageable);
+    Page<Comment> findByPostId(UUID postId, Pageable pageable);
 
 
     // 2. @Query

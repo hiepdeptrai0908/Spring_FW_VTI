@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class PostController {
     }
 
     @GetMapping("/api/v1/posts/{id}")
-    public PostDto findById(@PathVariable("id") long id) {
+    public PostDto findById(@PathVariable("id") UUID id) {
         return postService.findById(id);
     }
 
@@ -32,12 +33,12 @@ public class PostController {
     }
 
     @PutMapping("/api/v1/posts/{id}")
-    public PostDto update(@PathVariable("id") long id, @RequestBody PostUpdateForm form) {
+    public PostDto update(@PathVariable("id") UUID id, @RequestBody PostUpdateForm form) {
         return postService.update(id, form);
     }
 
     @DeleteMapping("/api/v1/posts/{id}")
-    public void deleteById(@PathVariable("id") long id) {
+    public void deleteById(@PathVariable("id") UUID id) {
         postService.deleteById(id);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService{
@@ -21,7 +23,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public PostDto findById(long id) {
+    public PostDto findById(UUID id) {
         return repository.findById(id)
                 .map(PostMapper::map)
                 .orElse(null);
@@ -37,7 +39,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public PostDto update(long id, PostUpdateForm form) {
+    public PostDto update(UUID id, PostUpdateForm form) {
         var optional = repository.findById(id);
         if (optional.isEmpty()) {
             return null;
@@ -49,7 +51,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(UUID id) {
         repository.deleteById(id);
     }
 }

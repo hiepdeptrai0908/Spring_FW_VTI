@@ -7,15 +7,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface PostService {
     Page<PostDto> findAll(Pageable pageable);
 
-    PostDto findById(long id);
+    PostDto findById(UUID id);
 
     PostDto create(PostCreateForm form);
 
-    PostDto update(long id, PostUpdateForm form);
+    PostDto update(UUID id, PostUpdateForm form);
 
-    void deleteById(long id);
+    void deleteById(UUID id);
 }

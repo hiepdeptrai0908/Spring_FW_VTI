@@ -1,16 +1,19 @@
 package com.hiep.blog.controller;
 
+import com.hiep.blog.anotation.CommentIdExists;
+import com.hiep.blog.anotation.PostIdExists;
 import com.hiep.blog.dto.CommentDto;
 import com.hiep.blog.form.CommentCreateForm;
 import com.hiep.blog.form.CommentUpdateForm;
 import com.hiep.blog.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@Validated
 @RestController
 @AllArgsConstructor
 public class CommentController {
@@ -21,27 +24,27 @@ public class CommentController {
         return commentService.findAll(pageable);
     }
     @GetMapping("/api/v1/comments/posts/{postId}")
-    public Page<CommentDto> findByPostId(@PathVariable("postId") Long postId, Pageable pageable) {
+    public Page<CommentDto> findByPostId(@PathVariable("postId") @PostIdExists Long postId, Pageable pageable) {
         return commentService.findByPostId(postId, pageable);
     }
 
     @GetMapping("/api/v1/comments/{id}")
-    public CommentDto findById(@PathVariable("id") Long id) {
+    public CommentDto findById(@PathVariable("id") @CommentIdExists Long id) {
         return commentService.findById(id);
     }
 
     @PostMapping("/api/v1/posts/{postId}/comments")
-    public CommentDto create(@PathVariable("postId") Long postId, @RequestBody CommentCreateForm form) {
+    public CommentDto create(@PathVariable("postId") @PostIdExists Long postId,@Valid @RequestBody CommentCreateForm form) {
         return commentService.create(postId, form);
     }
 
     @PutMapping("/api/v1/comments/{id}")
-    public CommentDto update(@PathVariable("id") Long id, @RequestBody CommentUpdateForm form) {
+    public CommentDto update(@PathVariable("id") @CommentIdExists Long id,@Valid @RequestBody CommentUpdateForm form) {
         return commentService.update(id, form);
     }
 
     @DeleteMapping("/api/v1/comments/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") @CommentIdExists Long id) {
         commentService.delete(id);
     }
 

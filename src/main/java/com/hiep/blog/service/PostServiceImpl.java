@@ -3,8 +3,10 @@ package com.hiep.blog.service;
 import com.hiep.blog.dto.PostDto;
 import com.hiep.blog.entity.Post;
 import com.hiep.blog.form.PostCreateForm;
+import com.hiep.blog.form.PostFilterForm;
 import com.hiep.blog.form.PostUpdateForm;
 import com.hiep.blog.repository.PostRepository;
+import com.hiep.blog.specification.PostSpecification;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -18,8 +20,9 @@ public class PostServiceImpl implements PostService{
     private ModelMapper modelMapper;
 
     @Override
-    public Page<PostDto> findAll(Pageable pageable) {
-        return repository.findAll(pageable).map(post -> modelMapper.map(post, PostDto.class));
+    public Page<PostDto> findAll(PostFilterForm form, Pageable pageable) {
+        var spec = PostSpecification.buildSpec(form);
+        return repository.findAll(spec, pageable).map(post -> modelMapper.map(post, PostDto.class));
     }
 
     @Override

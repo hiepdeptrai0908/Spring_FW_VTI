@@ -4,6 +4,8 @@ import com.hiep.blog.entity.Post;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class PostDto {
@@ -17,7 +19,7 @@ public class PostDto {
 
     private Post.Status status;
 
-    private String createdAt;
+    private LocalDateTime createdAt;
 
-    private String updatedAt;
+    private LocalDateTime updatedAt;
 }

@@ -28,7 +28,7 @@ public class PostMapper {
         dto.setCreatedAt(post.getCreatedAt());
         dto.setUpdatedAt(post.getUpdatedAt());
 
-        return dto;
+        return dto.withSelfRel();
     }
 
     // Ánh xạ form update

@@ -3,10 +3,12 @@ package com.hiep.blog.service;
 import com.hiep.blog.dto.CommentDto;
 import com.hiep.blog.entity.Comment;
 import com.hiep.blog.form.CommentCreateForm;
+import com.hiep.blog.form.CommentFilterForm;
 import com.hiep.blog.form.CommentUpdateForm;
 import com.hiep.blog.mapper.CommentMapper;
 import com.hiep.blog.repository.CommentRepository;
 import com.hiep.blog.repository.PostRepository;
+import com.hiep.blog.specifition.CommentSpecifition;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +26,9 @@ public class CommentServiceImpl implements CommentService{
     private PostRepository postRepository;
 
     @Override
-    public Page<CommentDto> findAll(Pageable pageable) {
-        return commentRepository.findAll(pageable).map(CommentMapper::map);
+    public Page<CommentDto> findAll(CommentFilterForm form, Pageable pageable) {
+        var spec = CommentSpecifition.buildSpec(form);
+        return commentRepository.findAll(spec, pageable).map(CommentMapper::map);
     }
 
     @Override

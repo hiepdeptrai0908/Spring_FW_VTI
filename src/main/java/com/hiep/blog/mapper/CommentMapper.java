@@ -17,12 +17,13 @@ public class CommentMapper {
     public static CommentDto map(Comment comment) {
         CommentDto dto = new CommentDto();
         dto.setId(comment.getId());
+        dto.setPostId(comment.getPost().getId());
         dto.setName(comment.getName());
         dto.setEmail(comment.getEmail());
         dto.setBody(comment.getBody());
         dto.setCreatedAt(comment.getCreatedAt());
         dto.setUpdatedAt(comment.getUpdatedAt());
-        return dto;
+        return dto.withSelfRel();
     }
 
     public static void map(Comment comment, CommentUpdateForm form) {

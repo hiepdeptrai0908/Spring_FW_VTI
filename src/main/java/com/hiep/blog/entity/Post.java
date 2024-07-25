@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -35,11 +36,11 @@ public class Post {
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
-    private String updatedAt;
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comment;

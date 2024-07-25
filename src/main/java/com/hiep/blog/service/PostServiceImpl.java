@@ -2,9 +2,11 @@ package com.hiep.blog.service;
 
 import com.hiep.blog.dto.PostDto;
 import com.hiep.blog.form.PostCreateForm;
+import com.hiep.blog.form.PostFilterForm;
 import com.hiep.blog.form.PostUpdateForm;
 import com.hiep.blog.mapper.PostMapper;
 import com.hiep.blog.repository.PostRepository;
+import com.hiep.blog.specifition.PostSpecifition;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +18,9 @@ public class PostServiceImpl implements PostService{
     private PostRepository repository;
 
     @Override
-    public Page<PostDto> findAll(Pageable pageable) {
-        return repository.findAll(pageable).map(PostMapper::map);
+    public Page<PostDto> findAll(PostFilterForm form, Pageable pageable) {
+        var spec = PostSpecifition.buildSpec(form);
+        return repository.findAll(spec, pageable).map(PostMapper::map);
     }
 
     @Override

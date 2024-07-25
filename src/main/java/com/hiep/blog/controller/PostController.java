@@ -3,6 +3,7 @@ package com.hiep.blog.controller;
 import com.hiep.blog.anotation.PostIdExists;
 import com.hiep.blog.dto.PostDto;
 import com.hiep.blog.form.PostCreateForm;
+import com.hiep.blog.form.PostFilterForm;
 import com.hiep.blog.form.PostUpdateForm;
 import com.hiep.blog.service.PostService;
 import jakarta.validation.Valid;
@@ -21,8 +22,8 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/api/v1/posts")
-    public Page<PostDto> findAll(Pageable pageable) {
-        return postService.findAll(pageable);
+    public Page<PostDto> findAll(PostFilterForm form, Pageable pageable) {
+        return postService.findAll(form, pageable);
     }
 
     @GetMapping("/api/v1/posts/{id}")

@@ -4,6 +4,7 @@ import com.hiep.blog.anotation.CommentIdExists;
 import com.hiep.blog.anotation.PostIdExists;
 import com.hiep.blog.dto.CommentDto;
 import com.hiep.blog.form.CommentCreateForm;
+import com.hiep.blog.form.CommentFilterForm;
 import com.hiep.blog.form.CommentUpdateForm;
 import com.hiep.blog.service.CommentService;
 import jakarta.validation.Valid;
@@ -20,8 +21,8 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping("/api/v1/comments")
-    public Page<CommentDto> findAll(Pageable pageable) {
-        return commentService.findAll(pageable);
+    public Page<CommentDto> findAll(CommentFilterForm form, Pageable pageable) {
+        return commentService.findAll(form, pageable);
     }
     @GetMapping("/api/v1/comments/posts/{postId}")
     public Page<CommentDto> findByPostId(@PathVariable("postId") @PostIdExists Long postId, Pageable pageable) {

@@ -31,7 +31,7 @@ public class Comment {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
